@@ -166,7 +166,11 @@ bool moveEnemies() {
 
         // Check if enemy collides with the player
         if (ex == playerX && ey == playerY) {
-            return true; // Game over
+            cout << "You were caught by an enemy! Resetting to the start of the level...\n";
+            sleep(2);
+            playerX = 1; // Reset player X position
+            playerY = 1; // Reset player Y position
+            return false; // Do not end the game; reset instead
         }
     }
 
@@ -227,12 +231,9 @@ int main() {
                 break; // Exit the current level loop and generate a new maze
             }
 
-            // Move enemies and check for collision with player
+            // Move enemies and handle collisions
             if (moveEnemies()) {
-                cout << "You were caught by an enemy! Game Over." << endl;
-                sleep(2);
-                gameRunning = false;
-                break;
+                continue; // Reset player to the start of the level
             }
         }
     }
